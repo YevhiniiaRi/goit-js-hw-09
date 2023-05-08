@@ -38,31 +38,35 @@ startButton.addEventListener('click', () => {
   startButton.disabled = true;
   datePicker.disabled = true;
 
-
-
   countdownIntervalId = setInterval(() => {
     const now = new Date().getTime();
-    const distance = countdownDate - now;
-
- 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(
-      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  
-    daysElement.textContent = days.toString().padStart(2, '0');
-    hoursElement.textContent = hours.toString().padStart(2, '0');
-    minutesElement.textContent = minutes.toString().padStart(2, '0');
-    secondsElement.textContent = seconds.toString().padStart(2, '0');
-
+    let distance = countdownDate - now;
 
     if (distance <= 0) {
       clearInterval(countdownIntervalId);
       datePicker.disabled = false;
       startButton.disabled = true;
+      daysElement.textContent = '00';
+      hoursElement.textContent = '00';
+      minutesElement.textContent = '00';
+      secondsElement.textContent = '00';
+      return;
     }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    distance -= days * (1000 * 60 * 60 * 24);
+
+    const hours = Math.floor(distance / (1000 * 60 * 60));
+    distance -= hours * (1000 * 60 * 60);
+
+    const minutes = Math.floor(distance / (1000 * 60));
+    distance -= minutes * (1000 * 60);
+
+    const seconds = Math.floor(distance / 1000);
+
+    daysElement.textContent = days.toString().padStart(2, '0');
+    hoursElement.textContent = hours.toString().padStart(2, '0');
+    minutesElement.textContent = minutes.toString().padStart(2, '0');
+    secondsElement.textContent = seconds.toString().padStart(2, '0');
   }, 1000);
 });

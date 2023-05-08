@@ -22,7 +22,7 @@ form.addEventListener('submit', event => {
   const amount = Number(event.target.elements.amount.value);
 
   for (let i = 1; i <= amount; i++) {
-    createPromise(i, delay + i * step)
+    createPromise(i, delay + (i - 1) * step)
       .then(({ position, delay }) => {
         console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
       })
