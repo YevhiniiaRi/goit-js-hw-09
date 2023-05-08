@@ -35,6 +35,10 @@ let countdownIntervalId;
 startButton.addEventListener('click', () => {
   const countdownDate = new Date(datePicker.value).getTime();
 
+  startButton.disabled = true;
+  datePicker.disabled = true;
+
+
 
   countdownIntervalId = setInterval(() => {
     const now = new Date().getTime();
@@ -57,6 +61,8 @@ startButton.addEventListener('click', () => {
 
     if (distance <= 0) {
       clearInterval(countdownIntervalId);
+      datePicker.disabled = false;
+      startButton.disabled = true;
     }
   }, 1000);
 });
